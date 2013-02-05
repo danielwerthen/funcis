@@ -1,0 +1,9 @@
+NodeA.Foo("Tests should \"work\"")
+	(err, res) =>
+		NodeB.Coo(err[24], res.Result, " Enter the multiline
+			Champ of the 
+			Century")
+			NodeC.Zoo(err, { kalle: 35
+				, Olle: "Marcus"
+				, Ballo: { Age: 235, Mister: 35 } }
+		, [ "Final", "Test" ])

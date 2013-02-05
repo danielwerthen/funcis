@@ -1,3 +1,9 @@
-Node.Foo
+Node.Foo(35, kalle[24], kalle.arr2[24], 'test
+Lets see if it works
+"App"
+\'fine\'
+as it should', "test2
+And I \"test\" think a little bit", arg, "test", { karl: 253, olle: { job: 25 }, anders: [ 24, 25 ] }
+, [ 24, 25 ])
 	Node.Class1!Class2.Coo
 		Foo

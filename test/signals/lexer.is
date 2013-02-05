@@ -1,0 +1,3 @@
+NodeA.Foo(35, 46, 25)
+	(err, res) =>
+		NodeB.Coo(err, res)

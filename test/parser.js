@@ -1,12 +1,32 @@
 var should = require('should')
+	, _ = require('underscore')
 	, fs = require('fs')
-	, Parser = require('../lib/parser')
+	, Lexer = require('../lib/lexer')
+	, writeCorrect = true
 
 describe('Parser', function () {
-	it('should test OK', function (done) {
-		var str = fs.readFileSync('test/signals/test.is', 'utf-8');
-		var p = new Parser(str);
-		p.test();
+	it('basic parse scenario', function (done) {
+		var str = fs.readFileSync('test/signals/lexer.is', 'utf-8');
+		var p = new Lexer(str);
+		var res = p.read();
+		var resStr = JSON.stringify(res, null, '\t');
+		if (writeCorrect)
+			fs.writeFileSync('test/signals/lexer.res', resStr, 'utf-8');
+		var r = fs.readFileSync('test/signals/lexer.res', 'utf-8');
+		//console.dir(_.map(res, function (e) { return { type: e.type, val: e.val }; }));
+		(resStr === r).should.be.true;
+		done();
+	});
+	it('advanced parse scenario', function (done) {
+		var str = fs.readFileSync('test/signals/lexer02.is', 'utf-8');
+		var p = new Lexer(str);
+		var res = p.read();
+		var resStr = JSON.stringify(res, null, '\t');
+		if (writeCorrect)
+			fs.writeFileSync('test/signals/lexer02.res', resStr, 'utf-8');
+		var r = fs.readFileSync('test/signals/lexer02.res', 'utf-8');
+		console.dir(_.map(res, function (e) { return { type: e.type, val: e.val }; }));
+		(resStr === r).should.be.true;
 		done();
 	});
 });
