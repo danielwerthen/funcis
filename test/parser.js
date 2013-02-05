@@ -32,7 +32,7 @@ describe('Parser', function () {
 		var resStr = JSON.stringify(res, null, '\t');
 		if (reset) fs.writeFileSync('test/signals/lexer03.res', resStr, 'utf-8');
 		var r = fs.readFileSync('test/signals/lexer03.res', 'utf-8');
-		//console.dir(_.map(res, function (e) { return { type: e.type, val: e.val }; }));
+		console.dir(_.map(res, function (e) { return { type: e.type, val: e.val, indent: e.indent }; }));
 		(resStr === r).should.be.true;
 		done();
 	});
