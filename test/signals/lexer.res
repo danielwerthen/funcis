@@ -68,6 +68,11 @@
 		"indent": 1
 	},
 	{
+		"type": "callback",
+		"line": 2,
+		"indent": 1
+	},
+	{
 		"type": "indent",
 		"line": 3,
 		"val": 2,

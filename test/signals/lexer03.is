@@ -1,0 +1,11 @@
+let alpha = 5
+
+let Join = (err, res, num) =>
+	NodeC.Zoo(err, res, num)
+
+NodeA.Foo(35, alpha, 25)
+	(err, res) =>
+		NodeB.Coo(err, res)
+			Join(err, res, alpha)
+		NodeB.Boo(err, res)
+			Join(err, res, alpha)
