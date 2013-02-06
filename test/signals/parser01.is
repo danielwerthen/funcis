@@ -1,7 +1,7 @@
 let alpha = 5
 
 let Join = (err, res, num) =>
-	NodeC.Zoo(err, res, num)
+	NodeC.Zoo(err, res.test, [ { 'alpha': num.alpha[3], beta: num } ])
 
 NodeA.Foo(35, alpha, 25)
 	(err, res, _) =>

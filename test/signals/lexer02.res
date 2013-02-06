@@ -150,35 +150,35 @@
 		"subtype": "json"
 	},
 	{
+		"type": "param",
+		"line": 4,
+		"val": "[ \"Final\", \"Test\" ]",
+		"indent": 3,
+		"subtype": "array"
+	},
+	{
+		"type": "paramStop",
+		"line": 4,
+		"indent": 3
+	},
+	{
+		"type": "outdent",
+		"line": 5,
+		"indent": 1
+	},
+	{
 		"type": "outdent",
 		"line": 5,
 		"indent": 3
 	},
 	{
-		"type": "param",
-		"line": 5,
-		"val": "[ \"Final\", \"Test\" ]",
-		"indent": 2,
-		"subtype": "array"
-	},
-	{
-		"type": "paramStop",
-		"line": 5,
-		"indent": 2
-	},
-	{
 		"type": "outdent",
-		"line": 6,
-		"indent": 1
-	},
-	{
-		"type": "outdent",
-		"line": 6,
+		"line": 5,
 		"indent": 2
 	},
 	{
 		"type": "eos",
-		"line": 6,
+		"line": 5,
 		"indent": 0
 	}
 ]
