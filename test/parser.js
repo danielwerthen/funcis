@@ -1,11 +1,13 @@
 var should = require('should')
+	, util = require('util')
 	, _ = require('underscore')
 	, fs = require('fs')
 	, Lexer = require('../lib/lexer')
-	, reset = false
+	, Parser = require('../lib/parser')
+	, reset = true
 
 describe('Parser', function () {
-	it('basic parse scenario', function (done) {
+	it('basic lexing scenario', function (done) {
 		var str = fs.readFileSync('test/signals/lexer.is', 'utf-8');
 		var p = new Lexer(str);
 		var res = p.read();
@@ -15,7 +17,7 @@ describe('Parser', function () {
 		(resStr === r).should.be.true;
 		done();
 	});
-	it('advanced parse scenario', function (done) {
+	it('advanced lexing scenario', function (done) {
 		var str = fs.readFileSync('test/signals/lexer02.is', 'utf-8');
 		var p = new Lexer(str);
 		var res = p.read();
@@ -25,7 +27,7 @@ describe('Parser', function () {
 		(resStr === r).should.be.true;
 		done();
 	});
-	it('let parse scenario', function (done) {
+	it('declarative lexing scenario', function (done) {
 		var str = fs.readFileSync('test/signals/lexer03.is', 'utf-8');
 		var p = new Lexer(str);
 		var res = p.read();
@@ -34,6 +36,13 @@ describe('Parser', function () {
 		var r = fs.readFileSync('test/signals/lexer03.res', 'utf-8');
 		console.dir(_.map(res, function (e) { return { type: e.type, val: e.val, indent: e.indent }; }));
 		(resStr === r).should.be.true;
+		done();
+	});
+	it('declarative parse scenario', function (done) {
+		var str = fs.readFileSync('test/signals/parser01.is', 'utf-8');
+		var p = new Parser(str);
+		var res = p.parse();
+		console.log(util.inspect(res, null, null));
 		done();
 	});
 });

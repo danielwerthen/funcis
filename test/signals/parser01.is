@@ -7,5 +7,5 @@ NodeA.Foo(35, alpha, 25)
 	(err, res, _) =>
 		NodeB.Coo(err, res)
 			Join(err, res, alpha)
-		NodeB.Boo(err, res)
+		NodeB.Boo (err, res)
 			Join(err, res, alpha)

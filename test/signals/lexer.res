@@ -17,22 +17,25 @@
 		"indent": 0
 	},
 	{
-		"type": "num",
+		"type": "param",
 		"line": 1,
 		"val": "35",
-		"indent": 0
+		"indent": 0,
+		"subtype": "num"
 	},
 	{
-		"type": "num",
+		"type": "param",
 		"line": 1,
 		"val": "46",
-		"indent": 0
+		"indent": 0,
+		"subtype": "num"
 	},
 	{
-		"type": "num",
+		"type": "param",
 		"line": 1,
 		"val": "25",
-		"indent": 0
+		"indent": 0,
+		"subtype": "num"
 	},
 	{
 		"type": "paramStop",
@@ -51,16 +54,18 @@
 		"indent": 1
 	},
 	{
-		"type": "arg",
+		"type": "param",
 		"line": 2,
 		"val": "err",
-		"indent": 1
+		"indent": 1,
+		"subtype": "arg"
 	},
 	{
-		"type": "arg",
+		"type": "param",
 		"line": 2,
 		"val": "res",
-		"indent": 1
+		"indent": 1,
+		"subtype": "arg"
 	},
 	{
 		"type": "paramStop",
@@ -96,16 +101,18 @@
 		"indent": 2
 	},
 	{
-		"type": "arg",
+		"type": "param",
 		"line": 3,
 		"val": "err",
-		"indent": 2
+		"indent": 2,
+		"subtype": "arg"
 	},
 	{
-		"type": "arg",
+		"type": "param",
 		"line": 3,
 		"val": "res",
-		"indent": 2
+		"indent": 2,
+		"subtype": "arg"
 	},
 	{
 		"type": "paramStop",
