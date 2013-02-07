@@ -41,8 +41,13 @@ describe('Parser', function () {
 	it('declarative parse scenario', function (done) {
 		var str = fs.readFileSync('test/signals/parser01.is', 'utf-8');
 		var p = new Parser(str);
-		var res = p.parse();
-		console.log(util.inspect(res, null, null));
+		var script = p.parse();
+		var recreated = script.print();
+		var p2 = new Parser(recreated);
+		var script2 = p2.parse();
+		var re2created = script2.print();
+		(recreated === re2created).should.be.true;
+		//console.log(util.inspect(res, null, null));
 		done();
 	});
 });
