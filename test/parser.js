@@ -4,7 +4,7 @@ var should = require('should')
 	, fs = require('fs')
 	, Lexer = require('../lib/lexer')
 	, Parser = require('../lib/parser')
-	, reset = true
+	, reset = false
 
 describe('Parser', function () {
 	it('basic lexing scenario', function (done) {
@@ -38,7 +38,7 @@ describe('Parser', function () {
 		(resStr === r).should.be.true;
 		done();
 	});
-	it('declarative parse scenario', function (done) {
+	it('declarative parse scenario with double parsing', function (done) {
 		var str = fs.readFileSync('test/signals/parser01.is', 'utf-8');
 		var p = new Parser(str);
 		var script = p.parse();
@@ -48,6 +48,18 @@ describe('Parser', function () {
 		var re2created = script2.print();
 		(recreated === re2created).should.be.true;
 		//console.log(util.inspect(res, null, null));
+		done();
+	});
+	it('declarative parse scenario with double parsing', function (done) {
+		var str = fs.readFileSync('test/signals/parser01.is', 'utf-8');
+		var p = new Parser(str);
+		var script = p.parse();
+		var recreated = script.print();
+		//console.log(util.inspect(res, null, null));
+		if (reset) fs.writeFileSync('test/signals/parser01.res', recreated, 'utf-8');
+		var r = fs.readFileSync('test/signals/parser01.res', 'utf-8');
+		//console.dir(_.map(res, function (e) { return { type: e.type, val: e.val, indent: e.indent }; }));
+		(recreated === r).should.be.true;
 		done();
 	});
 });
