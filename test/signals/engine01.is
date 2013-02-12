@@ -1,9 +1,10 @@
-let alpha = 5
+let alpha = [1,2,3,4,5]
 
 let Join = (err, res, num) =>
 	NodeA.Print(err, res)
 
-NodeA.Print('Hello world! ', 25)
-	(a) =>
-		NodeA.Print(a, alpha)
-			Join(35, 355)
+NodeA.Print('Hello world! ', { "hello": "World" })
+	(b, a) =>
+		Join(35, alpha)
+			(_, b) =>
+				NodeA.Print(a, b)

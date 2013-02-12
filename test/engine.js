@@ -18,7 +18,8 @@ describe('Engine', function () {
 		var node = engine.createNode('NodeA', [ 'Revn', 'Kiln' ]);
 		node.functions.add('Print', function (arg1, arg2) {
 			var args = Array.prototype.slice.call(arguments);
-			console.log(args.join(', '));
+			console.dir(arg1);
+			console.dir(arg2);
 			this.next.apply(null, args);
 		});
 		engine.scripts.add('Engine01', script);
