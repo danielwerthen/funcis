@@ -1,0 +1,5 @@
+NodeA.Begin()
+	(item) =>
+		NodeA.Count(item)
+			(res) =>
+				NodeA.Match(res)
