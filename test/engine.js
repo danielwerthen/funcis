@@ -3,8 +3,7 @@ var should = require('should')
 	, _ = require('underscore')
 	, fs = require('fs')
 	, Parser = require('../lib/parser')
-	, Lexer = require('../lib/lexer')
-	, Engine = require('../lib/engine')
+	, Lexer = require('../lib/lexer') , Engine = require('../lib/engine')
 
 describe('Engine', function () {
 	it('simple script', function (done) {
@@ -14,20 +13,50 @@ describe('Engine', function () {
 		var tt = t.read();
 		//console.dir(tt);
 		var script = p.parse();
+		//console.log(util.inspect(script, false, 100));
 		var engine = new Engine({ verbose: true });
 		var node = engine.createNode('NodeA', [ 'Revn', 'Kiln' ]);
-		node.functions.add('Print', function (arg1, arg2) {
+		node.functions.add('Print', function (arg1, arg2, cb) {
 			var args = Array.prototype.slice.call(arguments);
-			this.next.apply(null, args);
+			cb.apply(null, args);
 		});
 		engine.scripts.add('Engine01', script);
 		done();
+	});
+	it('advanced script', function (done) {
+		var str = fs.readFileSync('test/signals/engine03.is', 'utf-8');
+		var p = new Parser(str);
+		var script = p.parse();
+		//console.log(util.inspect(script, false, 100));
+		var engine = new Engine({ verbose: true });
+		var node = engine.createNode('NodeA', [ 'Revn', 'Kiln' ]);
+		node.functions.add('Add', function (arg1, arg2, cb) {
+			cb(arg1 + arg2);
+		});
+		node.functions.add('Subtract', function (arg1, arg2, cb) {
+			cb(arg1 - arg2);
+		});
+		node.functions.add('Multi', function (arg1, arg2, cb) {
+			cb(arg1 * arg2);
+		});
+		node.functions.add('Div', function (arg1, arg2, cb) {
+			cb(arg1 / arg2);
+		});
+		var equals = 0;
+		node.functions.add('Equal', function (arg1, arg2, cb) {
+			console.log('Result is: ' + arg1);
+			(arg1 === arg2).should.be.true;
+			if (++equals >= script.functions.length)
+				done();
+		});
+		engine.scripts.add('Engine03', script);
 	});
 	it('Lets see what it can do script', function (done) {
 		var str = fs.readFileSync('test/signals/engine02.is', 'utf-8');
 		var input = fs.readFileSync('test/signals/input02.txt', 'utf-8');
 		var p = new Parser(str);
 		var script = p.parse();
+		//console.log(util.inspect(script, false, 100));
 		var engine = new Engine({ verbose: true });
 		var node = engine.createNode('NodeA', [ 'Revn', 'Kiln' ]);
 		
@@ -68,7 +97,7 @@ describe('Engine', function () {
 
 		var t0 = Date.now()
 			, fin2;
-		node.functions.add('Begin', function () {
+		node.functions.add('Begin', function (cb) {
 			var self = this;
 			var c = 1;
 			var run = function (N, fin) {
@@ -79,10 +108,10 @@ describe('Engine', function () {
 				iterate(N, function (t1, res1) {
 					fin2 = function(t2, res2) {
 						fin(N, t1, t2, res1, res2);
-						self.global.set('store', {});
+						self.set('store', {});
 						run(N + 10, fin);
 					};
-					begin(self.next, N);
+					begin(cb, N);
 				});
 			};
 			run(c, function (N, t1, t2, res1, res2) {
@@ -90,8 +119,8 @@ describe('Engine', function () {
 				console.dir('N: ' + N + ' rate: ' + (t2 / t1) + ' Res2: ' + t2);
 			});
 		});
-		node.functions.add('Count', function (word) {
-			count(this.next, this.global, word);
+		node.functions.add('Count', function (word, cb) {
+			count(cb, this, word);
 		});
 		node.functions.add('Match', function (result) {
 			fin2(Date.now() - t0, result);

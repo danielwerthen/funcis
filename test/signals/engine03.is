@@ -1,0 +1,24 @@
+let magic = 35
+
+let Magic = (a, b) =>
+	NodeA.Add(a,magic)
+		(res) =>
+			NodeA.Multi(res, b)
+
+NodeA.Add(5,5)
+	(res) =>
+		NodeA.Subtract(res, 2)
+			(res) =>
+				NodeA.Multi(res, 3)
+					(res) =>
+						NodeA.Equal(res, 24)
+
+NodeA.Add(5,5)
+	(res) =>
+		NodeA.Subtract(res, 2)
+			(res) =>
+				Magic(res, 2)
+					(res) =>
+						Magic(res, 2)
+							(res) =>
+								NodeA.Equal(res, 242)
