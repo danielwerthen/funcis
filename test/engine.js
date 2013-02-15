@@ -44,7 +44,6 @@ describe('Engine', function () {
 		});
 		var equals = 0;
 		node.functions.add('Equal', function (arg1, arg2, cb) {
-			console.log('Result is: ' + arg1);
 			(arg1 === arg2).should.be.true;
 			if (++equals >= script.functions.length)
 				done();
@@ -57,7 +56,7 @@ describe('Engine', function () {
 		var p = new Parser(str);
 		var script = p.parse();
 		//console.log(util.inspect(script, false, 100));
-		var engine = new Engine({ verbose: true });
+		var engine = new Engine({ verbose: true, loglevel: 1 });
 		var node = engine.createNode('NodeA', [ 'Revn', 'Kiln' ]);
 		
 		function begin(next, iterations) {
