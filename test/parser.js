@@ -14,6 +14,7 @@ describe('Parser', function () {
 		var resStr = JSON.stringify(res, null, '\t');
 		if (reset) fs.writeFileSync('test/signals/lexer.res', resStr, 'utf-8');
 		var r = fs.readFileSync('test/signals/lexer.res', 'utf-8');
+		r = r.replace(/\r\n|\r/g, '\n');
 		(resStr === r).should.be.true;
 		done();
 	});
@@ -24,6 +25,7 @@ describe('Parser', function () {
 		var resStr = JSON.stringify(res, null, '\t');
 		if (reset) fs.writeFileSync('test/signals/lexer02.res', resStr, 'utf-8');
 		var r = fs.readFileSync('test/signals/lexer02.res', 'utf-8');
+		r = r.replace(/\r\n|\r/g, '\n');
 		(resStr === r).should.be.true;
 		done();
 	});
@@ -34,6 +36,7 @@ describe('Parser', function () {
 		var resStr = JSON.stringify(res, null, '\t');
 		if (reset) fs.writeFileSync('test/signals/lexer03.res', resStr, 'utf-8');
 		var r = fs.readFileSync('test/signals/lexer03.res', 'utf-8');
+		r = r.replace(/\r\n|\r/g, '\n');
 		//console.dir(_.map(res, function (e) { return { type: e.type, val: e.val, indent: e.indent }; }));
 		(resStr === r).should.be.true;
 		done();
@@ -58,6 +61,7 @@ describe('Parser', function () {
 		//console.log(util.inspect(res, null, null));
 		if (reset) fs.writeFileSync('test/signals/parser01.res', recreated, 'utf-8');
 		var r = fs.readFileSync('test/signals/parser01.res', 'utf-8');
+		r = r.replace(/\r\n|\r/g, '\n');
 		//console.dir(_.map(res, function (e) { return { type: e.type, val: e.val, indent: e.indent }; }));
 		(recreated === r).should.be.true;
 		done();
