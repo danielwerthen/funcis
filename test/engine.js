@@ -1,11 +1,39 @@
 var should = require('should')
 	, util = require('util')
 	, _ = require('underscore')
+	, http = require('http')
 	, fs = require('fs')
 	, Parser = require('../lib/parser')
 	, Lexer = require('../lib/lexer') , Engine = require('../lib/engine')
 
 describe('Engine', function () {
+	it('engine to engine communication', function (done) {
+		var str = fs.readFileSync('test/signals/engine04.is', 'utf-8');
+		var script = new Parser(str).parse();
+
+		var engine1 = new Engine({ verbose: true, loglevel: 5 });
+		var engine2 = new Engine({ verbose: true, loglevel: 5 });
+
+		var nodeA = engine1.createNode('NodeA', []);
+		nodeA.functions.add('Add', function (arg1, arg2, cb) {
+			cb(arg1 + arg2);
+		});
+
+		var nodeB = engine2.createNode('NodeB', []);
+		nodeB.functions.add('Print', function (first, cb) {
+			(first === 9).should.be.true;
+			done();
+		});
+
+		http.createServer(engine2.listen()).listen(8001);
+
+		var remote = engine1.connect({ port: 8001 });
+		remote.addNode('NodeB', []);
+
+		engine1.scripts.add('Engine04', script);
+		engine2.scripts.add('Engine04', script);
+
+	});
 	it('simple script', function (done) {
 		var str = fs.readFileSync('test/signals/engine01.is', 'utf-8');
 		var t = new Lexer(str);
