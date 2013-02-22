@@ -11,8 +11,8 @@ describe('Engine', function () {
 		var str = fs.readFileSync('test/signals/engine04.is', 'utf-8');
 		var script = new Parser(str).parse();
 
-		var engine1 = new Engine({ verbose: true, loglevel: 5 });
-		var engine2 = new Engine({ verbose: true, loglevel: 5 });
+		var engine1 = new Engine({ verbose: true, loglevel: 2 });
+		var engine2 = new Engine({ verbose: true, loglevel: 2 });
 
 		var nodeA = engine1.createNode('NodeA', []);
 		nodeA.functions.add('Add', function (arg1, arg2, cb) {
@@ -33,6 +33,31 @@ describe('Engine', function () {
 		engine1.scripts.add('Engine04A', script);
 		engine2.scripts.add('Engine04B', script);
 
+	});
+	it('Throughput test', function (done) {
+		var str = fs.readFileSync('test/signals/engine06.is', 'utf-8');
+		var p = new Parser(str);
+		var script = p.parse();
+		var engine = new Engine({ verbose: true });
+		var node = engine.createNode('Node', [ 'Revn', 'Kiln' ]);
+		var t0
+			, t1;
+		node.functions.add('Start', function (cb) {
+			t0 = Date.now();
+			cb();
+		});
+		node.functions.add('Incr', function (arg1, cb) {
+			cb(arg1 + 1);
+		});
+		var equals = 0;
+		node.functions.add('End', function (arg1, cb) {
+			t1 = Date.now();
+			console.log('Time: ' + (t1 - t0) + ' Res: ' + arg1);
+			cb();
+			if (++equals >= script.functions.length)
+				done();
+		});
+		engine.scripts.add('Engine06', script);
 	});
 	it('simple script', function (done) {
 		var str = fs.readFileSync('test/signals/engine01.is', 'utf-8');
@@ -56,7 +81,7 @@ describe('Engine', function () {
 		var p = new Parser(str);
 		var script = p.parse();
 		//console.log(util.inspect(script, false, 100));
-		var engine = new Engine({ verbose: true });
+		var engine = new Engine({ verbose: true, loglevel: 5 });
 		var node = engine.createNode('NodeA', [ 'Revn', 'Kiln' ]);
 		node.functions.add('Add', function (arg1, arg2, cb) {
 			cb(arg1 + arg2);
@@ -73,6 +98,7 @@ describe('Engine', function () {
 		var equals = 0;
 		node.functions.add('Equal', function (arg1, arg2, cb) {
 			(arg1 === arg2).should.be.true;
+			console.dir(arg1);
 			if (++equals >= script.functions.length)
 				done();
 		});

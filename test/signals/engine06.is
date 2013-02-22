@@ -1,0 +1,68 @@
+Node.Start()
+	Node.Incr(0)
+		(res) =>
+			Node.Incr(res)
+				(res) =>
+					Node.Incr(res)
+						(res) =>
+							Node.Incr(res)
+								(res) =>
+									Node.Incr(res)
+										(res) =>
+											Node.Incr(res)
+												(res) =>
+													Node.Incr(res)
+														(res) =>
+															Node.Incr(res)
+																(res) =>
+																	Node.Incr(res)
+																		(res) =>
+																			Node.Incr(res)
+																				(res) =>
+																					Node.Incr(res)
+																						(res) =>
+																							Node.Incr(res)
+																								(res) =>
+																									Node.Incr(res)
+																										(res) =>
+																											Node.Incr(res)
+																												(res) =>
+																													Node.Incr(res)
+																														(res) =>
+																															Node.Incr(res)
+																																(res) =>
+																																	Node.Incr(res)
+																																		(res) =>
+																																			Node.Incr(res)
+																																				(res) =>
+																																					Node.Incr(res)
+																																						(res) =>
+																																							Node.Incr(res)
+																																								(res) =>
+																																									Node.Incr(res)
+																																										(res) =>
+																																											Node.Incr(res)
+																																												(res) =>
+																																													Node.Incr(res)
+																																														(res) =>
+																																															Node.Incr(res)
+																																																(res) =>
+																																																	Node.Incr(res)
+																																																		(res) =>
+																																																			Node.Incr(res)
+																																																				(res) =>
+																																																					Node.Incr(res)
+																																																						(res) =>
+																																																							Node.Incr(res)
+																																																								(res) =>
+																																																									Node.Incr(res)
+																																																										(res) =>
+																																																											Node.Incr(res)
+																																																												(res) =>
+																																																													Node.Incr(res)
+																																																														(res) =>
+																																																															Node.Incr(res)
+																																																																(res) =>
+																																																																	Node.Incr(res)
+																																																																		(res) =>
+																																																																			Node.End(res)
