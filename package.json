@@ -10,7 +10,8 @@
   "main": "index.js",
   "dependencies": {
     "underscore": "1.4.x",
-    "lodash": "~1.0.0-rc.3"
+    "lodash": "~1.0.0-rc.3",
+    "async": "~0.2.5"
   },
   "devDependencies": {
     "mocha": "1.6.x",
