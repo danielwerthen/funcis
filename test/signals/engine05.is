@@ -1,7 +1,0 @@
-
-NodeA.Add(5,5)
-	(res) =>
-		nif (0)
-			NodeA.Equal(10, 10)
-		if (res)
-			NodeA.Add(res, 10)

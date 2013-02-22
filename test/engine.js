@@ -51,33 +51,6 @@ describe('Engine', function () {
 		engine.scripts.add('Engine01', script);
 		done();
 	});
-	it('conditional script', function (done) {
-		var str = fs.readFileSync('test/signals/engine05.is', 'utf-8');
-		var p = new Parser(str);
-		var script = p.parse();
-		//console.log(util.inspect(script, false, 100));
-		var engine = new Engine({ verbose: true });
-		var node = engine.createNode('NodeA', [ 'Revn', 'Kiln' ]);
-		node.functions.add('Add', function (arg1, arg2, cb) {
-			cb(arg1 + arg2);
-		});
-		node.functions.add('Subtract', function (arg1, arg2, cb) {
-			cb(arg1 - arg2);
-		});
-		node.functions.add('Multi', function (arg1, arg2, cb) {
-			cb(arg1 * arg2);
-		});
-		node.functions.add('Div', function (arg1, arg2, cb) {
-			cb(arg1 / arg2);
-		});
-		var equals = 0;
-		node.functions.add('Equal', function (arg1, arg2, cb) {
-			(arg1 === arg2).should.be.true;
-			if (++equals >= script.functions.length)
-				done();
-		});
-		engine.scripts.add('Engine05', script);
-	});
 	it('advanced script', function (done) {
 		var str = fs.readFileSync('test/signals/engine03.is', 'utf-8');
 		var p = new Parser(str);
