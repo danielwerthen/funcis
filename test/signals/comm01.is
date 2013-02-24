@@ -1,0 +1,23 @@
+NodeA.Noop()
+	NodeB.Noop()
+		NodeA.Noop()
+			NodeB.Noop()
+				NodeA.Start(0)
+					(val) =>
+						NodeB.Incr(val)
+							(res) =>
+								NodeA.Incr(res)
+									(res) =>
+										NodeB.Incr(res)
+											(res) =>
+												NodeA.Incr(res)
+													(res) =>
+														NodeB.Incr(res)
+															(res) =>
+																NodeA.Incr(res)
+																	(res) =>
+																		NodeB.Incr(res)
+																			(res) =>
+																				NodeA.Incr(res)
+																					(res) =>
+																						NodeA.End(res, 8)
