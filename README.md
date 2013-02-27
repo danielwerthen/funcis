@@ -19,18 +19,20 @@ Usage
 
 A *app.js* file:
 
-	var funcis = require('funcis')
-		, app = funcis();
+```js
+var funcis = require('funcis')
+	, app = funcis();
 
-	var node = app.node('Node');
-	node.functions.add('Add', function (arg1, arg2, next) {
-		next(arg1 + arg2);
-	});
-	node.functions.add('Print', function (val, next) {
-		console.log(val);
-	});
-	
-	app.script('addition');
+var node = app.node('Node');
+node.functions.add('Add', function (arg1, arg2, next) {
+	next(arg1 + arg2);
+});
+node.functions.add('Print', function (val, next) {
+	console.log(val);
+});
+
+app.script('addition');
+```
 
 A *addition.is* file: ('.is' is the default extension to script files)
 
