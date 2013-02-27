@@ -26,3 +26,5 @@ The current script syntax is heavily influenced by Javascript with a little bit 
 Except for passing argument references like `arg1` one can also pass constant json objects, array, strings and number.
 
 	Node.Function("Number", 35, "Array", [ 12, 24, 35 ], "And objects", { key: "value" })
+
+
