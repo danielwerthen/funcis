@@ -31,7 +31,7 @@ describe('Engine communication', function () {
 		});
 		nodeA.functions.add('End', function (arg1, arg2, cb) {
 			(arg1 === arg2).should.be.true;
-			console.dir('Time: ' + (Date.now() - t0));
+			//console.dir('Time: ' + (Date.now() - t0));
 			done();
 		});
 		nodeA.functions.add('Noop', function (cb) {

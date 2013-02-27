@@ -54,7 +54,7 @@ describe('Engine', function () {
 		var equals = 0;
 		node.functions.add('End', function (arg1, cb) {
 			t1 = Date.now();
-			console.log('Time: ' + (t1 - t0) + ' Res: ' + arg1);
+			//console.log('Time: ' + (t1 - t0) + ' Res: ' + arg1);
 			cb();
 			if (++equals >= script.functions.length)
 				done();
@@ -83,7 +83,7 @@ describe('Engine', function () {
 		var p = new Parser(str);
 		var script = p.parse();
 		//console.log(util.inspect(script, false, 100));
-		var engine = new Engine({ verbose: true, loglevel: 5 });
+		var engine = new Engine({ verbose: true, loglevel: 1 });
 		var node = engine.createNode('NodeA', [ 'Revn', 'Kiln' ]);
 		node.functions.add('Add', function (arg1, arg2, cb) {
 			cb(arg1 + arg2);
@@ -170,7 +170,7 @@ describe('Engine', function () {
 			};
 			run(c, function (N, t1, t2, res1, res2) {
 				(_.isEqual(res1,res2)).should.be.true;
-				console.dir('N: ' + N + ' rate: ' + (t2 / t1) + ' Res2: ' + t2);
+				//console.dir('N: ' + N + ' rate: ' + (t2 / t1) + ' Res2: ' + t2);
 			});
 		});
 		node.functions.add('Count', function (word, cb) {

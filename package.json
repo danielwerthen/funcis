@@ -1,15 +1,14 @@
 {
   "author": "Daniel Werthén <daniel@func.is>",
   "name": "funcis",
-  "description": "A library for smooth RPC in an heterogenous environment",
-  "version": "0.0.0",
+  "description": "A framework for distributed applications",
+  "version": "0.1.0",
   "homepage": "http://func.is",
   "repository": {
     "url": "https://github.com/danielwerthen/funcis.git"
   },
   "main": "index.js",
   "dependencies": {
-    "underscore": "1.4.x",
     "lodash": "~1.0.0-rc.3",
     "async": "~0.2.5"
   },
@@ -21,9 +20,5 @@
   "engines": {
     "node": "0.8.x",
     "npm": "1.1.x"
-  },
-  "scripts": {
-    "test": "make test",
-    "start": "index.js"
   }
 }
