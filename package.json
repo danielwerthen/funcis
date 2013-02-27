@@ -1,7 +1,7 @@
 {
   "author": "Daniel Werthén <daniel@func.is>",
   "name": "funcis",
-  "description": "A framework for distributed applications",
+  "description": "A functionalistic approach to app to app communication",
   "version": "0.1.0",
   "homepage": "http://func.is",
   "repository": {
@@ -18,7 +18,7 @@
   },
   "optionalDependencies": {},
   "engines": {
-    "node": "0.8.x",
-    "npm": "1.1.x"
+    "node": ">0.8.x",
+    "npm": ">1.1.x"
   }
 }
