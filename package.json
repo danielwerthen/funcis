@@ -2,7 +2,7 @@
   "author": "Daniel Werthén <daniel@func.is>",
   "name": "funcis",
   "description": "A functionalistic approach to app to app communication",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "http://func.is",
   "repository": {
     "url": "https://github.com/danielwerthen/funcis.git"
