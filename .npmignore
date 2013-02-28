@@ -1,5 +1,6 @@
 lib-cov
 test
+examples
 npm-debug.log
 node_modules
 
