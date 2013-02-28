@@ -1,2 +1,18 @@
 @import "typeplate.scss";
 /* base.scss */
+body {
+  background: url("/img/noise2.png") repeat, #FFFFFF -webkit-gradient(linear, left top, left bottom, color-stop(0, #EEEEEE), color-stop(1, #FFFFFF)) repeat-x;
+  background: url("/img/noise2.png") repeat, #FFFFFF -webkit-linear-gradient(top, #EEEEEE 0%, #FFFFFF 100%) repeat-x;
+  background: url("/img/noise2.png") repeat, #FFFFFF -moz-linear-gradient(top, #EEEEEE 0%, #FFFFFF 100%) repeat-x;
+  background: url("/img/noise2.png") repeat, #FFFFFF -o-linear-gradient(top, #EEEEEE 0%, #FFFFFF 100%) repeat-x;
+  background: url("/img/noise2.png") repeat, #FFFFFF -ms-linear-gradient(top, #EEEEEE 0%, #FFFFFF 100%) repeat-x;
+}
+
+.menu {
+	ul {
+		list-style-type: none;
+		a {
+			@extend .gamma; @extend %hN;
+		}
+	}
+}
