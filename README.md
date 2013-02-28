@@ -40,6 +40,57 @@ A *addition.is* file: ('.is' is the default extension to script files)
 		(res) =>
 			Node.Print(res)
 
+Let's extend this with a second *node* in another app.
+*NodeA.js*:
+
+```js
+var funcis = require('funcis')
+	, http = require('http')
+	, app = funcis();
+
+var nodea = app.node('NodeA');
+nodea.functions.add('Add', function (arg1, arg2, cb) {
+	cb(arg1 + arg2);
+});
+
+http.createServer(app.listen()).listen(5001);
+
+var nodeb = app.connect({ host: 'localhost', port: 5000 });
+nodeb.addNode('NodeB');
+
+app.script('addition');
+
+
+```
+
+*NodeB.js*:
+
+```js
+var funcis = require('funcis')
+	, http = require('http')
+	, app = funcis();
+
+var nodeb = app.node('NodeB');
+nodeb.functions.add('Print', function (val, cb) {
+	console.log(val);
+});
+
+http.createServer(app.listen()).listen(5000);
+
+var nodea = app.connect({ host: 'localhost', port: 5001 });
+nodea.addNode('NodeA');
+
+app.script('addition');
+```
+
+We also need to update *addition.is*:
+
+```
+NodeA.Add(5,5)
+	(res)
+		NodeB.Print(res)
+```
+
 Scripting
 =========
 
