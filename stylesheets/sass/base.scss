@@ -14,5 +14,33 @@ body {
 		a {
 			@extend .gamma; @extend %hN;
 		}
+		a:hover {
+			text-decoration:underline;
+		}
 	}
+}
+.submenu {
+	ul {
+		list-style-type: square;
+		a {
+			@extend .delta; @extend %hN;
+		}
+		a:hover {
+			text-decoration:underline;
+		}
+	}
+}
+
+code {
+	margin: 0 2px;
+	padding: 0px 5px;
+	border: 1px solid #EAEAEA;
+	background-color: #F8F8F8;
+	border-radius: 3px;
+}
+pre code {
+	margin: 0;
+	padding: 0px;
+	border: none;
+	background-color: transparent;
 }

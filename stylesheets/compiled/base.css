@@ -53,7 +53,7 @@ body {
   hyphens: auto;
   color: #444444; }
 
-h1, h2, h3, h4, h5, h6, .menu ul a {
+h1, h2, h3, h4, h5, h6, .menu ul a, .submenu ul a {
   text-rendering: optimizeLegibility;
   line-height: 1;
   margin-top: 0; }
@@ -88,7 +88,7 @@ h1, h2, h3, h4, h5, h6, .menu ul a {
   font-size: 2rem;
   margin-bottom: 0.825rem; }
 
-.delta, h4 {
+.delta, h4, .submenu ul a {
   font-size: 24px;
   font-size: 1.33333rem;
   margin-bottom: 1.2375rem; }
@@ -299,3 +299,23 @@ body {
 
 .menu ul {
   list-style-type: none; }
+  .menu ul a:hover {
+    text-decoration: underline; }
+
+.submenu ul {
+  list-style-type: square; }
+  .submenu ul a:hover {
+    text-decoration: underline; }
+
+code {
+  margin: 0 2px;
+  padding: 0px 5px;
+  border: 1px solid #eaeaea;
+  background-color: #F8F8F8;
+  border-radius: 3px; }
+
+pre code {
+  margin: 0;
+  padding: 0px;
+  border: none;
+  background-color: transparent; }
