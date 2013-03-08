@@ -96,9 +96,11 @@ Scripting
 
 The current script syntax is heavily influenced by Javascript with a little bit of lambda dashed onto it.
 
-	Node.Function(arg1, arg2)
-		(err, res) =>
-			Node.Function(err, res)
+```coffeescript
+Node.Function(arg1, arg2)
+	(err, res) =>
+		Node.Function(err, res)
+```
 
 If a function returns nothing the second argument definition may be omitted.
 
