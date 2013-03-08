@@ -3,9 +3,7 @@ layout: api
 title: Func.is by Daniel Werthén
 ---
 
-API
-===
-
+## API
 
 ### Node
 
