@@ -303,7 +303,7 @@ $stats-border-style: 0.125rem solid #ccc;
 		font-size: $font-size;
 		font-family: $font-family;
 		line-height: $lineHeight;
-		text-indent: $text-indent;
+		text-indent: 0;
 		background: $bg;
 		color: $color;
 	}
@@ -436,7 +436,7 @@ h6 { @extend .zeta; @extend %hN; }
 p {
 	& + p {
 		//siblings indentation
-		text-indent: $indent-val;
+		text-indent: 0;
 	}
 }
 
