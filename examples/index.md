@@ -12,17 +12,17 @@ The canary is a signal with a starter node that sequentially visit any path that
 
 Say for instance that we have a couple of nodes with the names: `Control`, `NodeA`, `NodeB`, `NodeC`.  The canary might then be implemented scriptwise such as:
 
-{% highlight %}
+{% highlight coffeescript %}
 Control.CanaryStart()
-(time) =>
-	NodeA.Passalong()
-		NodeB.Passalong()
-			NodeC.Passalong()
-				Control.CanaryEnd(time, 'Path ABC')
-	NodeC.Passalong()
-		NodeB.Passalong()
-			NodeA.Passalong()
-				Control.CanaryEnd(time, 'Path CBA')
+	(time) =>
+		NodeA.Passalong()
+			NodeB.Passalong()
+				NodeC.Passalong()
+					Control.CanaryEnd(time, 'Path ABC')
+		NodeC.Passalong()
+			NodeB.Passalong()
+				NodeA.Passalong()
+					Control.CanaryEnd(time, 'Path CBA')
 {% endhighlight %}
 
 In this case the `CanaryEnd` method also takes a string representing which path that is measured.  This examples also only covers the pathes ABC and CBA, and not BAC for instance.  If the other combinations of traversal is also used, those too should be tested.
@@ -64,7 +64,7 @@ Say for instance we have a setup with alot of different multimedia devices that 
 
 The basic scenario would be that we listen to OSC from one node and transfer a corresponsing signal in another.
 
-{% highlight %}
+{% highlight coffeescript %}
 Sound.ReceiveOSC('/beat')
 	(time, value) =>
 		Lights.SendOSC('/strobe', value)
@@ -72,7 +72,7 @@ Sound.ReceiveOSC('/beat')
 
 Perhaps there are several *light* nodes;
 
-{% highlight %}
+{% highlight coffeescript %}
 Sound.ReceiveOSC('/beat')
 	(time, value) =>
 		LightsRoof1.SendOSC('/strobe', value)
@@ -82,7 +82,7 @@ Sound.ReceiveOSC('/beat')
 
 Perhaps the *wall fixtures* should be delayed by `250ms` before flashing.
 
-{% highlight %}
+{% highlight coffeescript %}
 Sound.ReceiveOSC('/beat')
 	(time, value) =>
 		LightsRoof1.SendOSC('/strobe', value)
@@ -93,7 +93,7 @@ Sound.ReceiveOSC('/beat')
 
 And so on, for something a little more advanced, perhaps we are interested in `/beat` per minute rather than `/beat` itself.
 
-{% highlight %}
+{% highlight coffeescript %}
 Sound.ReceiveOSC('/beat')
 	(time, value) =>
 		Sound.PerMinute(time, value)
@@ -121,7 +121,7 @@ sound.functions.add('PerMinute', function (time, value, next) {
 
 Do note that this function only carries one state, so it can only properly be used in one signal at a time.  Imagine for instance the following:
 
-{% highlight %}
+{% highlight coffeescript %}
 Sound.ReceiveOSC('/beat1')
 	(time, value) =>
 		Sound.PerMinute(time, value)
@@ -137,7 +137,7 @@ Sound.ReceiveOSC('/beat2')
 
 And let's say that `/beat1` fires 60 times per minute and `/beat2` fires 120 times per minute.  First of, `continue` would be set to the last signal callback.  Which would probably be `/beat2` since it fires much faster.  So `/dashboard/bpm1` might never be set.  But the returned `bpm` value from `PerMinute` would also be wrong.  It would likely be around 60 + 120.  One way to fix this would be to add an identifier to each signal.
 
-{% highlight %}
+{% highlight coffeescript %}
 Sound.ReceiveOSC('/beat1')
 	(time, value) =>
 		Sound.PerMinute('/beat1', time, value)
@@ -170,4 +170,16 @@ sound.functions.add('PerMinute', function (id, time, value, next) {
 	}
 	states[id].ticks++;
 });
+{% endhighlight %}
+
+### Cross Protocol
+
+As we saw in the example above, it is fairly straight forward to build signals between nodes which in turn communicates something outside of **Func.is**.  But it is perhaps more interesting to note that it is as easy to facilitate communication between different protocols.  To continue with the example above, lets extend it so that the light fixtures are controlled by DMX.
+
+{% highlight coffeescript %}
+Sound.ReceiveOSC('/beat')
+	(time, value) =>
+		LightsRoof1.SendDMX(15, value)
+		LightsRoof2.SendDMX(12, value)
+		WallFixtures.SendDMX(124, value)
 {% endhighlight %}
