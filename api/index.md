@@ -242,55 +242,71 @@ server.listen(app.get('port'));
 
 The current script syntax is heavily influenced by Javascript with a little bit of lambda dashed onto it.
 
-	Node.Function(arg1, arg2)
-		(err, res) =>
-			Node.Function(err, res)
+{% highlight coffeescript %}
+Node.FunctionA(arg1, arg2)
+	(err, res) =>
+		Node.FunctionB(err, res)
+{% endhighlight %}
 
 If a function returns nothing the second argument definition may be omitted.
 
-	Node.Function(arg1)
-		Node.Function(arg2)
+{% highlight coffeescript %}
+Node.FunctionA(arg1)
+	Node.FunctionB(arg2)
+{% endhighlight %}
 
 Except for passing argument references like `arg1` one can also pass constant json objects, array, strings and number.
 
-	Node.Function("Number", 35, "Array", [ 12, 24, 35 ], "And objects", { key: "value" })
+{% highlight coffeescript %}
+Node.FunctionC("Number", 35, "Array", [ 12, 24, 35 ], "And objects", { key: "value" })
+{% endhighlight %}
 
 We can also define constants and give them a name, which allows for easy reuse.
 
-	let pi = 3.14159265358979323846264338327950
+{% highlight coffeescript %}
+let pi = 3.14159265358979323846264338327950
 
-	Node.Calc(5, pi)
-		(res) =>
-			Node.Equal(res, pi)
+Node.Calc(5, pi)
+	(res) =>
+		Node.Equal(res, pi)
+{% endhighlight %}
 
 It is also possible to declare function chains this way, or *continuations*.
 
-	let Join = (err, res)
-		Node.Match(err, res)
-			(OK) =>
-				Node.Report(OK, res)
+{% highlight coffeescript %}
+let Join = (err, res)
+	Node.Match(err, res)
+		(OK) =>
+			Node.Report(OK, res)
 
-	Node.Request()
-		(data) =>
-			Node.Split(data)
-				(err, item) =>
-					Join(err, item)
-			Node.Split(data)
-				(err, item) =>
-					Join(err, item)
+Node.Request()
+	(data) =>
+		Node.Split(data)
+			(err, item) =>
+				Join(err, item)
+		Node.Split(data)
+			(err, item) =>
+				Join(err, item)
+{% endhighlight %}
 
 This is practically the same thing as if the `Join` *continuation* would have been written in place, however repeated.
 
 The part in front of the function name is called the *selector* and is used to resolve the affected nodes.  In the examples above it is simply a *node* name.  The *node* name is supposedly unique, but there can also be one or more *class* names inherit to a *node*.  This kind of *selector* is signified with a `.`.
 
-	.Class.Func1()
+{% highlight coffeescript %}
+.Class.Func1()
+{% endhighlight %}
 		
 Several *class* names may be combined to specify the *node* query.  
 	
-	.ClassA.ClassB.Func()
+{% highlight coffeescript %}
+.ClassA.ClassB.Func()
+{% endhighlight %}
 
 The `!` character signifies that a specific *class* name should be omitted.
 
-	.IncludeClassA!ExcludeClassB.Func()
+{% highlight coffeescript %}
+.IncludeClassA!ExcludeClassB.Func()
+{% endhighlight %}
 
 If the selector resolves into several *nodes* the function call will be executed in each and every one of these *nodes* concurrently.

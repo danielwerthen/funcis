@@ -183,3 +183,40 @@ Sound.ReceiveOSC('/beat')
 		LightsRoof2.SendDMX(12, value)
 		WallFixtures.SendDMX(124, value)
 {% endhighlight %}
+
+There is obviously issues with data format transformation inbetween protocols, but that can be overcome by implementing a general data format which exists inside the **Func.is** domain and simply make sure that those functions which extend outside of this domain properly handle the corresponding transformation.
+
+### HTTP API
+
+Let's see if we can make a proper HTTP api for our little sound and lights setup.  Let's open up two addresses for turning a light on and off.
+
+{% highlight coffeescript %}
+Http.Listen('/roof/on')
+	LightsRoof1.SendDMX(15, 1)
+	LightsRoof2.SendDMX(12, 1)
+
+Http.Listen('/roof/off')
+	LightsRoof1.SendDMX(15, 0)
+	LightsRoof2.SendDMX(12, 0)
+{% endhighlight %}
+
+The `Http.Listen` method need a little bit of background work of course, so let's see what it might look like in Javascript.
+
+{% highlight javascript %}
+var http = require('http')
+	, listeners = {};
+
+http.functions.add('Listen', function (address, next) {
+	listeners[address] = next;
+});
+
+http.createServer(function (req, res) {
+	if (listeners[req.url]) {
+		listeners[req.url]();
+	}
+}).listen(80);
+{% endhighlight %}
+
+Now this is of course the very basic kind of http listener.  For instance it would be extended to allow multiple scripts to listen to the same address.  Or we could do regex matching on the http request url, or support various HTTP methods and so on.
+
+
