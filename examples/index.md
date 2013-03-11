@@ -30,7 +30,12 @@ In this case the `CanaryEnd` method also takes a string representing which path 
 This might be the implementation of `Control`:
 {% highlight javascript %}
 var EventEmitter = require('events').EventEmitter
+	, funcis = require('funcis')
+	, http = require('http')
+	, app = funcis()
 	, reporter = new EventEmitter();
+
+var control = app.node('Control');
 
 control.functions.add('CanaryStart', function (next) {
 	var interval = setInterval(function () {
@@ -44,6 +49,15 @@ control.functions.add('CanaryStart', function (next) {
 control.functions.add('CanaryEnd', function (time, path) {
 	reporter.emit(path, Date.now() - time);
 });
+
+http.createServer(app.listen()).listen(6011);
+
+var nodea = app.connect({ host: 'localhost', port: 6012 });
+nodea.addNode('NodeA');
+var nodec = app.connect({ host: 'localhost', port: 6014 });
+nodec.addNode('NodeC');
+
+app.script('canary');
 {% endhighlight %}
 
 It is noteworthy that it would be a could idea to clean up the `interval` set by the `CanaryStart` functions, since it would keep going even though the script might be shut down.  This is done through the context `this` and the event `onstop`, which fires once the script stops.
@@ -51,10 +65,28 @@ It is noteworthy that it would be a could idea to clean up the `interval` set by
 This might be the implementation of `NodeA-C`:
 
 {% highlight javascript %}
-node.functions.add('Passalong', function (next) {
+var EventEmitter = require('events').EventEmitter
+	, funcis = require('funcis')
+	, http = require('http')
+	, app = funcis()
+
+var nodea = app.node('NodeA');
+
+nodea.functions.add('Passalong', function (next) {
 	next();
 });
+
+http.createServer(app.listen()).listen(6012);
+
+var nodeb = app.connect({ host: 'localhost', port: 6013 });
+nodeb.addNode('NodeB');
+var control = app.connect({ host: 'localhost', port: 6011 });
+control.addNode('Control');
+
+app.script('canary');
 {% endhighlight %}
+
+Checkout the source for the Canary at [Github](https://github.com/danielwerthen/thecanary).
 
 ### Osc
 
