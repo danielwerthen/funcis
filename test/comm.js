@@ -79,6 +79,26 @@ describe('Engine communication', function () {
 		engine2.scripts.add('Engine04B', script);
 
 	});
+	it('basic comm https', function (done) {
+		var srv = https.createServer({ key: nodeBkey
+			, cert: nodeBcert
+			, ca: ca
+			, requestCert: true
+			, rejectUnauthorized: true
+		}, function (req, res) {
+			done();
+			res.end('test');
+		});
+		srv.listen(7081);
+
+		var req = https.request({ port: 7081
+			, key: nodeAkey
+			, cert: nodeAcert
+	 		, ca: ca
+			, agent: false });
+		req.write('Test');
+		req.end();
+	});
 	it('http', function (done) {
 		var str = fs.readFileSync('test/signals/comm01.is', 'utf-8');
 		var script = new Parser(str).parse();
