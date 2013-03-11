@@ -36,7 +36,7 @@ control.functions.add('CanaryStart', function (next) {
 	var interval = setInterval(function () {
 		next(Date.now());
 	}, 1000);
-	this.onStop(function () {
+	this.onstop(function () {
 		clearInterval(interval);
 	});
 });
@@ -46,7 +46,7 @@ control.functions.add('CanaryEnd', function (time, path) {
 });
 {% endhighlight %}
 
-It is noteworthy that it would be a could idea to clean up the `interval` set by the `CanaryStart` functions, since it would keep going even though the script might be shut down.  This is done through the context `this` and the event `onStop`, which fires once the script stops.
+It is noteworthy that it would be a could idea to clean up the `interval` set by the `CanaryStart` functions, since it would keep going even though the script might be shut down.  This is done through the context `this` and the event `onstop`, which fires once the script stops.
 
 This might be the implementation of `NodeA-C`:
 
