@@ -1,0 +1,22 @@
+{
+  "name": "funcis",
+  "main": "index.js",
+  "version": "0.0.0",
+  "homepage": "http://func.is",
+  "authors": [
+    "Daniel Werthén <danielwerthen@gmail.com>"
+  ],
+  "description": "Func.is is about simplicity, making app to app communication dead simple",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "~1.0.0-rc.3",
+    "async": "~0.2.5"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
