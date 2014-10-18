@@ -9,12 +9,15 @@
   },
   "main": "index.js",
   "dependencies": {
-    "lodash": "~1.0.0-rc.3",
-    "async": "~0.2.5"
+    "amdefine": "^0.1.0",
+    "async": "~0.2.5",
+    "lodash": "~1.0.0-rc.3"
   },
   "devDependencies": {
     "mocha": "1.6.x",
-    "should": "x"
+    "requirejs": "^2.1.15",
+    "should": "x",
+    "underscore": "^1.7.0"
   },
   "optionalDependencies": {},
   "engines": {
